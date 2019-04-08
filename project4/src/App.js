@@ -142,6 +142,45 @@ class App extends Component {
             <span className="navbar-text">Konjo Communities</span>
           </div>
         </nav>
+        <main className="container">
+          <Switch>
+            <Route
+              path="/signup"
+              render={props => {
+                return (
+                  <Signup
+                    isLoggedIn={this.state.isLoggedIn}
+                    handleInput={this.handleInput}
+                    handleSignUp={this.handleSignUp}
+                  />
+                );
+              }}
+            />
+            <Route
+              path="/logout"
+              render={props => {
+                return (
+                  <Logout
+                    isLoggedIn={this.state.isLoggedIn}
+                    handleLogOut={this.handleLogOut}
+                  />
+                );
+              }}
+            />
+            <Route
+              path="/login"
+              render={props => {
+                return (
+                  <Login
+                    isLoggedIn={this.state.isLoggedIn}
+                    handleInput={this.handleInput}
+                    handleLogIn={this.handleLogIn}
+                  />
+                );
+              }}
+            />
+          </Switch>
+        </main>
       </div>
     );
   }
