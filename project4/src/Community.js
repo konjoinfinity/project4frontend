@@ -61,7 +61,7 @@ class Community extends Component {
       .then(response => console.log(response))
       .then(result => {
         console.log(result);
-        this.getcommunity();
+        this.getCommunity();
       });
     this.props.history.push(`/community/${this.props.match.params.id}/`);
   }
