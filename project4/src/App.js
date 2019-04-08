@@ -9,6 +9,7 @@ import axios from "axios";
 import { withRouter } from "react-router";
 import Communities from "./Communities";
 import New from "./New";
+import Community from "./Community";
 
 class App extends Component {
   constructor(props) {
@@ -188,6 +189,18 @@ class App extends Component {
                   getCommunities={this.getCommunities}
                   isLoggedIn={this.state.isLoggedIn}
                   email={this.state.email}
+                />
+              )}
+            />
+            <Route
+              path="/community/:id"
+              exact
+              render={props => (
+                <Community
+                  {...props}
+                  communities={this.state.communities}
+                  getCommunities={this.Communities}
+                  isLoggedIn={this.state.isLoggedIn}
                 />
               )}
             />
