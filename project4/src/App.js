@@ -5,22 +5,37 @@ import Signup from "./Signup";
 import Login from "./Login";
 import Logout from "./Logout";
 import backendUrl from "./Url";
+import axios from "axios";
+import { withRouter } from "react-router";
+import Communities from "./Communities";
+import New from "./New";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      communities: "",
       email: "",
       password: "",
       isLoggedIn: false
     };
+    this.getCommunities = this.getCommunities.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
+  getCommunities() {
+    fetch(backendUrl + "community")
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ communities: res });
+      });
+  }
+
   componentDidMount() {
+    this.getCommunities();
     if (localStorage.token) {
       this.setState({
         isLoggedIn: true
@@ -61,7 +76,7 @@ class App extends Component {
         localStorage.token = response.data.token;
         this.setState({ isLoggedIn: true });
         console.log("User has signed up");
-        this.props.history.push("/songs");
+        this.props.history.push("/");
       })
       .catch(err => console.log(err));
   }
@@ -77,7 +92,7 @@ class App extends Component {
         localStorage.token = response.data.token;
         this.setState({ isLoggedIn: true });
         console.log("User is logged in");
-        this.props.history.push("/songs");
+        this.props.history.push("/");
       })
       .catch(err => console.log(err));
   }
@@ -138,6 +153,17 @@ class App extends Component {
                   </Link>
                 )}
               </li>
+              <li
+                className="nav-item"
+                data-toggle="collapse"
+                data-target=".navbar-collapse.show"
+              >
+                {this.state.isLoggedIn === true && (
+                  <Link to="/new">
+                    <h4>New</h4>
+                  </Link>
+                )}
+              </li>
             </ul>
             <span className="navbar-text">Konjo Communities</span>
           </div>
@@ -145,10 +171,32 @@ class App extends Component {
         <main className="container">
           <Switch>
             <Route
+              path="/"
+              exact
+              render={props => {
+                return (
+                  <Communities {...props} isLoggedIn={this.state.isLoggedIn} />
+                );
+              }}
+            />
+            <Route
+              path="/new"
+              exact
+              render={props => (
+                <New
+                  {...props}
+                  getCommunities={this.getCommunities}
+                  isLoggedIn={this.state.isLoggedIn}
+                  email={this.state.email}
+                />
+              )}
+            />
+            <Route
               path="/signup"
               render={props => {
                 return (
                   <Signup
+                    {...props}
                     isLoggedIn={this.state.isLoggedIn}
                     handleInput={this.handleInput}
                     handleSignUp={this.handleSignUp}
@@ -161,6 +209,7 @@ class App extends Component {
               render={props => {
                 return (
                   <Logout
+                    {...props}
                     isLoggedIn={this.state.isLoggedIn}
                     handleLogOut={this.handleLogOut}
                   />
@@ -172,6 +221,7 @@ class App extends Component {
               render={props => {
                 return (
                   <Login
+                    {...props}
                     isLoggedIn={this.state.isLoggedIn}
                     handleInput={this.handleInput}
                     handleLogIn={this.handleLogIn}
@@ -186,4 +236,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
