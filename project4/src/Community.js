@@ -39,8 +39,11 @@ class Community extends Component {
     fetch(backendUrl + `community/${this.state.community._id}`, {
       method: "DELETE"
     })
-      .then(this.props.history.push("/"))
-      .finally(() => this.props.getCommunitys());
+      .then(result => {
+        console.log(result);
+        this.props.getCommunities();
+      })
+      .then(this.props.history.push("/"));
   }
 
   handleComment() {
@@ -98,18 +101,24 @@ class Community extends Component {
             <div className="card-body">
               <h1>{this.state.community && this.state.community.name}</h1>
               <h2>
-                Author:{" "}
+                Description:{" "}
                 {this.state.community && this.state.community.description}
               </h2>
               <p>
-                Notes: {this.state.community && this.state.community.category}
+                Category:{" "}
+                {this.state.community && this.state.community.category}
               </p>
               <p>
-                Lyrics: {this.state.community && this.state.community.creator}
+                Creator: {this.state.community && this.state.community.creator}
               </p>
               <p>
                 <Link to={`/community/${this.props.match.params.id}/edit`}>
                   <button className="btn btn-primary">Edit</button>
+                </Link>
+              </p>
+              <p>
+                <Link to={`/community/${this.props.match.params.id}/meet`}>
+                  <button className="btn btn-success">New Meet</button>
                 </Link>
               </p>
               <form onSubmit={this.deleteCommunity}>
@@ -137,6 +146,20 @@ class Community extends Component {
               </form>
             </div>
           </div>
+
+          {this.state.community &&
+            this.state.community.meets.map((meet, id) => {
+              return (
+                <div className="meet card m-5" key={id}>
+                  <div className="card-body">
+                    <p>{meet.name}</p>
+                    <p>{meet.description}</p>
+                    <p>{meet.date}</p>
+                    <p>{meet.time}</p>
+                  </div>
+                </div>
+              );
+            })}
 
           {this.state.community &&
             this.state.community.comments.map((comment, id) => {

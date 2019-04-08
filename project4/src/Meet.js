@@ -1,23 +1,18 @@
 import React, { Component } from "react";
 import backendUrl from "./Url";
+import axios from "axios";
 
-class New extends Component {
+class Meet extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       description: "",
-      category: "",
-      creator: ""
+      date: "",
+      time: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({
-      creator: this.props.username
-    });
   }
 
   handleInputChange(event) {
@@ -32,22 +27,16 @@ class New extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.creator);
-    const data = this.state;
     console.log(event);
-    fetch(backendUrl + "community", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-      .then(response => response.json())
-      .then(result => {
-        this.props.history.push("/");
-        console.log(result);
+    axios
+      .put(backendUrl + `community/${this.props.match.params.id}/meet`, {
+        meet: this.state
       })
-      .finally(() => this.props.getCommunities());
+      .then(result => {
+        this.props.history.push(`/community/${this.props.match.params.id}`);
+        console.log(result);
+        this.props.getCommunities();
+      });
   }
 
   render() {
@@ -55,8 +44,8 @@ class New extends Component {
       this.props.isLoggedIn === true && (
         <div className="card m-5">
           <div className="card-body">
-            <h1>Create New Community</h1>
-            <form onSubmit={this.handleSubmit} action="/community">
+            <h1>New Meet</h1>
+            <form onSubmit={this.handleSubmit} action="/community/:id/meet">
               <div className="form-group">
                 <label>Name</label>
                 <p>
@@ -82,19 +71,31 @@ class New extends Component {
                 </p>
               </div>
               <div className="form-group">
-                <label>Category</label>
+                <label>Date</label>
                 <p>
                   <input
                     className="form-control"
-                    id="category"
-                    name="category"
+                    id="date"
+                    name="date"
+                    type="text"
+                    onChange={this.handleInputChange}
+                  />
+                </p>
+              </div>
+              <div className="form-group">
+                <label>Time</label>
+                <p>
+                  <input
+                    className="form-control"
+                    id="time"
+                    name="time"
                     type="text"
                     onChange={this.handleInputChange}
                   />
                 </p>
               </div>
               <p>
-                <button className="btn btn-success">Create Community</button>
+                <button className="btn btn-success">Create Meet</button>
               </p>
             </form>
           </div>
@@ -104,4 +105,4 @@ class New extends Component {
   }
 }
 
-export default New;
+export default Meet;

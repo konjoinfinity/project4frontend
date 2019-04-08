@@ -10,6 +10,8 @@ import { withRouter } from "react-router";
 import Communities from "./Communities";
 import New from "./New";
 import Community from "./Community";
+import Edit from "./Edit";
+import Meet from "./Meet";
 
 class App extends Component {
   constructor(props) {
@@ -18,7 +20,8 @@ class App extends Component {
       communities: "",
       email: "",
       password: "",
-      isLoggedIn: false
+      isLoggedIn: false,
+      username: {}
     };
     this.getCommunities = this.getCommunities.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
@@ -53,7 +56,8 @@ class App extends Component {
     this.setState({
       email: "",
       password: "",
-      isLoggedIn: false
+      isLoggedIn: false,
+      username: {}
     });
     localStorage.clear();
     console.log("User has been logged out");
@@ -68,6 +72,9 @@ class App extends Component {
 
   handleSignUp(e) {
     e.preventDefault();
+    this.setState({
+      username: this.state.email
+    });
     axios
       .post(backendUrl + "users/signup", {
         email: this.state.email,
@@ -84,6 +91,9 @@ class App extends Component {
 
   handleLogIn(e) {
     e.preventDefault();
+    this.setState({
+      username: this.state.email
+    });
     axios
       .post(backendUrl + "users/login", {
         email: this.state.email,
@@ -126,6 +136,28 @@ class App extends Component {
                 data-toggle="collapse"
                 data-target=".navbar-collapse.show"
               >
+                {this.state.isLoggedIn === true && (
+                  <Link to="/">
+                    <h4>Home</h4>
+                  </Link>
+                )}
+              </li>
+              <li
+                className="nav-item"
+                data-toggle="collapse"
+                data-target=".navbar-collapse.show"
+              >
+                {this.state.isLoggedIn === true && (
+                  <Link to="/new">
+                    <h4>New</h4>
+                  </Link>
+                )}
+              </li>
+              <li
+                className="nav-item"
+                data-toggle="collapse"
+                data-target=".navbar-collapse.show"
+              >
                 {this.state.isLoggedIn === false && (
                   <Link to="/login">
                     <h4>Login</h4>
@@ -151,17 +183,6 @@ class App extends Component {
                 {this.state.isLoggedIn === true && (
                   <Link to="/logout">
                     <h4>Logout</h4>
-                  </Link>
-                )}
-              </li>
-              <li
-                className="nav-item"
-                data-toggle="collapse"
-                data-target=".navbar-collapse.show"
-              >
-                {this.state.isLoggedIn === true && (
-                  <Link to="/new">
-                    <h4>New</h4>
                   </Link>
                 )}
               </li>
@@ -199,7 +220,29 @@ class App extends Component {
                 <Community
                   {...props}
                   communities={this.state.communities}
-                  getCommunities={this.Communities}
+                  getCommunities={this.getCommunities}
+                  isLoggedIn={this.state.isLoggedIn}
+                />
+              )}
+            />
+            <Route
+              path="/community/:id/meet"
+              exact
+              render={props => (
+                <Meet
+                  {...props}
+                  communities={this.state.communities}
+                  getCommunities={this.getCommunities}
+                  isLoggedIn={this.state.isLoggedIn}
+                />
+              )}
+            />
+            <Route
+              path="/community/:id/edit"
+              render={props => (
+                <Edit
+                  {...props}
+                  getCommunities={this.getCommunities}
                   isLoggedIn={this.state.isLoggedIn}
                 />
               )}

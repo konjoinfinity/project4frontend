@@ -1,23 +1,24 @@
 import React, { Component } from "react";
 import backendUrl from "./Url";
 
-class New extends Component {
+class Edit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      description: "",
-      category: "",
-      creator: ""
+      name: null,
+      description: null,
+      category: null
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
 
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
   componentDidMount() {
-    this.setState({
-      creator: this.props.username
-    });
+    fetch(backendUrl + `community/${this.props.match.params.id}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ community: res });
+      });
   }
 
   handleInputChange(event) {
@@ -32,11 +33,9 @@ class New extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.creator);
     const data = this.state;
-    console.log(event);
-    fetch(backendUrl + "community", {
-      method: "POST",
+    fetch(backendUrl + `community/${this.props.match.params.id}`, {
+      method: "PUT",
       headers: {
         "Content-type": "application/json"
       },
@@ -44,7 +43,7 @@ class New extends Component {
     })
       .then(response => response.json())
       .then(result => {
-        this.props.history.push("/");
+        this.props.history.push(`/community/${this.props.match.params.id}`);
         console.log(result);
       })
       .finally(() => this.props.getCommunities());
@@ -55,7 +54,7 @@ class New extends Component {
       this.props.isLoggedIn === true && (
         <div className="card m-5">
           <div className="card-body">
-            <h1>Create New Community</h1>
+            <h1>Edit Community</h1>
             <form onSubmit={this.handleSubmit} action="/community">
               <div className="form-group">
                 <label>Name</label>
@@ -65,6 +64,9 @@ class New extends Component {
                     id="name"
                     name="name"
                     type="text"
+                    defaultValue={
+                      this.state.community && this.state.community.name
+                    }
                     onChange={this.handleInputChange}
                   />
                 </p>
@@ -77,6 +79,9 @@ class New extends Component {
                     id="description"
                     name="description"
                     type="text"
+                    defaultValue={
+                      this.state.community && this.state.community.description
+                    }
                     onChange={this.handleInputChange}
                   />
                 </p>
@@ -89,12 +94,15 @@ class New extends Component {
                     id="category"
                     name="category"
                     type="text"
+                    defaultValue={
+                      this.state.community && this.state.community.category
+                    }
                     onChange={this.handleInputChange}
                   />
                 </p>
               </div>
               <p>
-                <button className="btn btn-success">Create Community</button>
+                <button className="btn btn-primary">Edit Community</button>
               </p>
             </form>
           </div>
@@ -104,4 +112,4 @@ class New extends Component {
   }
 }
 
-export default New;
+export default Edit;
