@@ -85,7 +85,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <nav className="navbar navbar-expand-lg navbar-light bg-success">
+        <nav className="navbar navbar-expand-lg navbar-light bg-primary">
           <a className="navbar-brand" href="/">
             <img
               src="https://konjoinfinity.github.io/img/logo.png"
