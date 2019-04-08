@@ -11,6 +11,7 @@ class Community extends Component {
       comment: null
     };
     this.deleteComment = this.deleteComment.bind(this);
+    this.deleteMeet = this.deleteMeet.bind(this);
     this.deleteCommunity = this.deleteCommunity.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -93,6 +94,20 @@ class Community extends Component {
     this.props.history.push(`/community/${this.state.community._id}/`);
   }
 
+  deleteMeet(event) {
+    event.preventDefault();
+    axios
+      .put(backendUrl + `community/${this.state.community._id}/meet/delete`, {
+        body: event.target.dataset.id
+      })
+      .then(response => console.log(response))
+      .then(result => {
+        console.log(result);
+        this.getCommunity();
+      });
+    this.props.history.push(`/community/${this.props.match.params.id}/`);
+  }
+
   render() {
     return (
       this.props.isLoggedIn === true && (
@@ -126,6 +141,25 @@ class Community extends Component {
               </form>
             </div>
           </div>
+
+          {this.state.community &&
+            this.state.community.meets.map((meet, id) => {
+              return (
+                <div className="meet card m-5" key={id}>
+                  <div className="card-body">
+                    <h2>{meet.name}</h2>
+                    <h4>{meet.description}</h4>
+                    <p>{meet.date}</p>
+                    <p>{meet.time}</p>
+                    <form data-id={meet._id} onSubmit={this.deleteMeet}>
+                      <p>
+                        <button className="btn btn-warning">Delete</button>
+                      </p>
+                    </form>
+                  </div>
+                </div>
+              );
+            })}
           <div className="community card m-5">
             <div className="card-body">
               <form onSubmit={this.handleSubmit}>
@@ -146,21 +180,6 @@ class Community extends Component {
               </form>
             </div>
           </div>
-
-          {this.state.community &&
-            this.state.community.meets.map((meet, id) => {
-              return (
-                <div className="meet card m-5" key={id}>
-                  <div className="card-body">
-                    <p>{meet.name}</p>
-                    <p>{meet.description}</p>
-                    <p>{meet.date}</p>
-                    <p>{meet.time}</p>
-                  </div>
-                </div>
-              );
-            })}
-
           {this.state.community &&
             this.state.community.comments.map((comment, id) => {
               return (
