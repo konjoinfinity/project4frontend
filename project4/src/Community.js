@@ -128,6 +128,10 @@ class Community extends Component {
   render() {
     var username = localStorage.getItem("username");
     console.log(username);
+    const member =
+      this.state.community &&
+      this.state.community.members.filter(member => member.name === username);
+    this.state.community && console.log(member.length);
     return (
       this.props.isLoggedIn === true && (
         <div className="conatiner">
@@ -155,13 +159,14 @@ class Community extends Component {
                 </div>
               </div>
               {this.state.community &&
-                (username !== this.state.community.creator && (
-                  <form onSubmit={this.joinCommunity}>
-                    <p>
-                      <button className="btn btn-info">Join Community</button>
-                    </p>
-                  </form>
-                ))}
+                (username !== this.state.community.creator &&
+                  member.length === 0 && (
+                    <form onSubmit={this.joinCommunity}>
+                      <p>
+                        <button className="btn btn-info">Join Community</button>
+                      </p>
+                    </form>
+                  ))}
               {this.state.community &&
                 (username === this.state.community.creator && (
                   <p>

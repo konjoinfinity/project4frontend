@@ -59,6 +59,8 @@ class App extends Component {
     });
     localStorage.clear();
     console.log("User has been logged out");
+    var username = localStorage.getItem("username");
+    console.log(username);
     this.props.history.push("/login");
   }
 
