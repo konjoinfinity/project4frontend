@@ -154,7 +154,23 @@ class Community extends Component {
                   <h5>Members</h5>
                   {this.state.community &&
                     this.state.community.members.map((member, id) => {
-                      return <p key={id}>{member.name}</p>;
+                      return (
+                        <div key={id}>
+                          <p>{member.name}</p>
+                          {username === this.state.community.creator && (
+                            <form
+                              data-id={member._id}
+                              onSubmit={this.deleteMember}
+                            >
+                              <p>
+                                <button className="btn btn-warning">
+                                  Remove Member
+                                </button>
+                              </p>
+                            </form>
+                          )}
+                        </div>
+                      );
                     })}
                 </div>
               </div>
