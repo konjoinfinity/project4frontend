@@ -42,11 +42,12 @@ class Community extends Component {
     fetch(backendUrl + `community/${this.state.community._id}`, {
       method: "DELETE"
     })
+      .then(response => response.json())
       .then(result => {
+        this.props.history.push("/");
         console.log(result);
-        this.props.getCommunities();
       })
-      .then(this.props.history.push("/"));
+      .finally(() => this.props.getCommunities());
   }
 
   handleComment() {
@@ -206,11 +207,14 @@ class Community extends Component {
                     </Link>
                   </p>
                 ))}
-              <p>
-                <Link to={`/community/${this.props.match.params.id}/meet`}>
-                  <button className="btn btn-success">New Meet</button>
-                </Link>
-              </p>
+              {this.state.community &&
+                (this.state.community.members.length >= 3 && (
+                  <p>
+                    <Link to={`/community/${this.props.match.params.id}/meet`}>
+                      <button className="btn btn-success">New Meet</button>
+                    </Link>
+                  </p>
+                ))}
               {this.state.community &&
                 (username === this.state.community.creator && (
                   <form onSubmit={this.deleteCommunity}>
