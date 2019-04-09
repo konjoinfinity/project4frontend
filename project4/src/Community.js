@@ -17,6 +17,7 @@ class Community extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleComment = this.handleComment.bind(this);
     this.getCommunity = this.getCommunity.bind(this);
+    this.joinCommunity = this.joinCommunity.bind(this);
   }
 
   componentDidMount() {
@@ -80,6 +81,22 @@ class Community extends Component {
     });
   }
 
+  joinCommunity(event) {
+    event.preventDefault();
+    var username = localStorage.getItem("username");
+    console.log(`Username is: ${username}`);
+    axios
+      .put(backendUrl + `community/${this.props.match.params.id}/adduser`, {
+        member: username
+      })
+      .then(response => console.log(response))
+      .then(result => {
+        console.log(result);
+        this.getCommunity();
+      });
+    this.props.history.push(`/community/${this.state.community._id}/`);
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     axios
@@ -128,6 +145,23 @@ class Community extends Component {
               <p>
                 Creator: {this.state.community && this.state.community.creator}
               </p>
+              <div className="member card m-5">
+                <div className="card-body">
+                  <h5>Members</h5>
+                  {this.state.community &&
+                    this.state.community.members.map((member, id) => {
+                      return <p key={id}>{member.name}</p>;
+                    })}
+                </div>
+              </div>
+              {this.state.community &&
+                (username !== this.state.community.creator && (
+                  <form onSubmit={this.joinCommunity}>
+                    <p>
+                      <button className="btn btn-info">Join Community</button>
+                    </p>
+                  </form>
+                ))}
               {this.state.community &&
                 (username === this.state.community.creator && (
                   <p>
