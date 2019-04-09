@@ -20,8 +20,7 @@ class App extends Component {
       communities: "",
       email: "",
       password: "",
-      isLoggedIn: false,
-      username: {}
+      isLoggedIn: false
     };
     this.getCommunities = this.getCommunities.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
@@ -56,8 +55,7 @@ class App extends Component {
     this.setState({
       email: "",
       password: "",
-      isLoggedIn: false,
-      username: {}
+      isLoggedIn: false
     });
     localStorage.clear();
     console.log("User has been logged out");
@@ -72,9 +70,7 @@ class App extends Component {
 
   handleSignUp(e) {
     e.preventDefault();
-    this.setState({
-      username: this.state.email
-    });
+    localStorage.setItem("username", this.state.email);
     axios
       .post(backendUrl + "users/signup", {
         email: this.state.email,
@@ -91,9 +87,7 @@ class App extends Component {
 
   handleLogIn(e) {
     e.preventDefault();
-    this.setState({
-      username: this.state.email
-    });
+    localStorage.setItem("username", this.state.email);
     axios
       .post(backendUrl + "users/login", {
         email: this.state.email,
@@ -209,7 +203,6 @@ class App extends Component {
                   {...props}
                   getCommunities={this.getCommunities}
                   isLoggedIn={this.state.isLoggedIn}
-                  email={this.state.email}
                 />
               )}
             />

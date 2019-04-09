@@ -15,8 +15,10 @@ class New extends Component {
   }
 
   componentDidMount() {
+    var username = localStorage.getItem("username");
+    console.log(username);
     this.setState({
-      creator: this.props.username
+      creator: username
     });
   }
 
