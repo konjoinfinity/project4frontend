@@ -143,11 +143,9 @@ class Community extends Component {
 
   render() {
     var username = localStorage.getItem("username");
-    console.log(username);
     const member =
       this.state.community &&
       this.state.community.members.filter(member => member.name === username);
-    this.state.community && console.log(member.length);
     return (
       this.props.isLoggedIn === true && (
         <div className="conatiner">
