@@ -9,10 +9,10 @@ class Edit extends Component {
       description: null,
       category: null
     };
-
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   componentDidMount() {
     fetch(backendUrl + `community/${this.props.match.params.id}`)
       .then(res => res.json())

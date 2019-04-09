@@ -109,6 +109,8 @@ class Community extends Component {
   }
 
   render() {
+    var username = localStorage.getItem("username");
+    console.log(username);
     return (
       this.props.isLoggedIn === true && (
         <div className="conatiner">
@@ -126,19 +128,25 @@ class Community extends Component {
               <p>
                 Creator: {this.state.community && this.state.community.creator}
               </p>
-              <p>
-                <Link to={`/community/${this.props.match.params.id}/edit`}>
-                  <button className="btn btn-primary">Edit</button>
-                </Link>
-              </p>
+              {this.state.community &&
+                (username === this.state.community.creator && (
+                  <p>
+                    <Link to={`/community/${this.props.match.params.id}/edit`}>
+                      <button className="btn btn-primary">Edit</button>
+                    </Link>
+                  </p>
+                ))}
               <p>
                 <Link to={`/community/${this.props.match.params.id}/meet`}>
                   <button className="btn btn-success">New Meet</button>
                 </Link>
               </p>
-              <form onSubmit={this.deleteCommunity}>
-                <button className="btn btn-danger">Delete</button>
-              </form>
+              {this.state.community &&
+                (username === this.state.community.creator && (
+                  <form onSubmit={this.deleteCommunity}>
+                    <button className="btn btn-danger">Delete</button>
+                  </form>
+                ))}
             </div>
           </div>
 
