@@ -18,6 +18,7 @@ class Community extends Component {
     this.handleComment = this.handleComment.bind(this);
     this.getCommunity = this.getCommunity.bind(this);
     this.joinCommunity = this.joinCommunity.bind(this);
+    this.deleteMember = this.deleteMember.bind(this);
   }
 
   componentDidMount() {
@@ -95,6 +96,20 @@ class Community extends Component {
         this.getCommunity();
       });
     this.props.history.push(`/community/${this.state.community._id}/`);
+  }
+
+  deleteMember(event) {
+    event.preventDefault();
+    axios
+      .put(backendUrl + `community/${this.state.community._id}/removeuser`, {
+        body: event.target.dataset.id
+      })
+      .then(response => console.log(response))
+      .then(result => {
+        console.log(result);
+        this.getCommunity();
+      });
+    this.props.history.push(`/community/${this.props.match.params.id}/`);
   }
 
   handleSubmit(event) {
