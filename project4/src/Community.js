@@ -143,6 +143,7 @@ class Community extends Component {
 
   render() {
     var username = localStorage.getItem("username");
+    this.state.community && console.log(username);
     const member =
       this.state.community &&
       this.state.community.members.filter(member => member.name === username);
@@ -165,7 +166,11 @@ class Community extends Component {
               </p>
               <div className="member card m-5">
                 <div className="card-body">
-                  <h5>Members</h5>
+                  <h5>
+                    Members:{" "}
+                    {this.state.community &&
+                      this.state.community.numberOfMembers}
+                  </h5>
                   {this.state.community &&
                     this.state.community.members.map((member, id) => {
                       return (
@@ -224,7 +229,6 @@ class Community extends Component {
                 ))}
             </div>
           </div>
-
           {this.state.community &&
             this.state.community.meets.map((meet, id) => {
               return (
@@ -243,39 +247,86 @@ class Community extends Component {
                 </div>
               );
             })}
-          <div className="community card m-5">
-            <div className="card-body">
-              <form onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                  <p>
-                    <input
-                      className="form-control"
-                      id="comment"
-                      name="comment"
-                      type="text"
-                      onChange={this.handleInputChange}
-                    />
-                  </p>
+          {this.state.community &&
+            (username === this.state.community.creator && (
+              <div className="community card m-5">
+                <div className="card-body">
+                  <form onSubmit={this.handleSubmit}>
+                    <div className="form-group">
+                      <p>
+                        <input
+                          className="form-control"
+                          id="comment"
+                          name="comment"
+                          type="text"
+                          onChange={this.handleInputChange}
+                        />
+                      </p>
+                    </div>
+                    <p>
+                      <button className="btn btn-primary">Comment</button>
+                    </p>
+                  </form>
                 </div>
-                <p>
-                  <button className="btn btn-primary">Comment</button>
-                </p>
-              </form>
-            </div>
-          </div>
+              </div>
+            ))}
           {this.state.community &&
             this.state.community.comments.map((comment, id) => {
               return (
-                <div className="community card m-5" key={id}>
-                  <div className="card-body">
-                    <p>{comment.text}</p>
-                    <form data-id={comment._id} onSubmit={this.deleteComment}>
-                      <p>
-                        <button className="btn btn-warning">Delete</button>
-                      </p>
-                    </form>
+                this.state.community &&
+                (username === this.state.community.creator && (
+                  <div className="community card m-5" key={id}>
+                    <div className="card-body">
+                      <p>{comment.text}</p>
+                      <form data-id={comment._id} onSubmit={this.deleteComment}>
+                        <p>
+                          <button className="btn btn-warning">Delete</button>
+                        </p>
+                      </form>
+                    </div>
                   </div>
+                ))
+              );
+            })}
+          {this.state.community &&
+            (member.length === 1 && (
+              <div className="community card m-5">
+                <div className="card-body">
+                  <form onSubmit={this.handleSubmit}>
+                    <div className="form-group">
+                      <p>
+                        <input
+                          className="form-control"
+                          id="comment"
+                          name="comment"
+                          type="text"
+                          onChange={this.handleInputChange}
+                        />
+                      </p>
+                    </div>
+                    <p>
+                      <button className="btn btn-primary">Comment</button>
+                    </p>
+                  </form>
                 </div>
+              </div>
+            ))}
+          {this.state.community &&
+            this.state.community.comments.map((comment, id) => {
+              return (
+                this.state.community &&
+                (member.length === 1 && (
+                  <div className="community card m-5" key={id}>
+                    <div className="card-body">
+                      <p>{comment.text}</p>
+                      <form data-id={comment._id} onSubmit={this.deleteComment}>
+                        <p>
+                          <button className="btn btn-warning">Delete</button>
+                        </p>
+                      </form>
+                    </div>
+                  </div>
+                ))
               );
             })}
         </div>
