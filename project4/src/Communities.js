@@ -41,6 +41,8 @@ class Communities extends Component {
               </p>
               <p>{community.description}</p>
               <p>{community.category}</p>
+              <p>Number of Members: {community.numberOfMembers}</p>
+              <p>Creator: {community.creator}</p>
             </div>
           </div>
         );

@@ -161,9 +161,6 @@ class Community extends Component {
                 Category:{" "}
                 {this.state.community && this.state.community.category}
               </p>
-              <p>
-                Creator: {this.state.community && this.state.community.creator}
-              </p>
               <div className="member card m-5">
                 <div className="card-body">
                   <h5>
@@ -171,7 +168,10 @@ class Community extends Component {
                     {this.state.community &&
                       this.state.community.numberOfMembers}
                   </h5>
-                  <p>{this.state.community && this.state.community.creator}</p>
+                  <p>
+                    Creator:{" "}
+                    {this.state.community && this.state.community.creator}
+                  </p>
                   {this.state.community &&
                     this.state.community.members.map((member, id) => {
                       return (
