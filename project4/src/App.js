@@ -183,7 +183,9 @@ class App extends Component {
                 )}
               </li>
             </ul>
-            <span className="navbar-text">Konjo Communities</span>
+            <span className="navbar-text text-light">
+              Beautiful Communities
+            </span>
           </div>
         </nav>
         <main className="container">

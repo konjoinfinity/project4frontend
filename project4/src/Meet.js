@@ -8,6 +8,7 @@ class Meet extends Component {
     this.state = {
       name: "",
       description: "",
+      location: "",
       date: "",
       time: ""
     };
@@ -65,6 +66,18 @@ class Meet extends Component {
                     className="form-control"
                     id="description"
                     name="description"
+                    type="text"
+                    onChange={this.handleInputChange}
+                  />
+                </p>
+              </div>
+              <div className="form-group">
+                <label>Location</label>
+                <p>
+                  <input
+                    className="form-control"
+                    id="location"
+                    name="location"
                     type="text"
                     onChange={this.handleInputChange}
                   />

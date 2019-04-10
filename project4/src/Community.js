@@ -171,6 +171,7 @@ class Community extends Component {
                     {this.state.community &&
                       this.state.community.numberOfMembers}
                   </h5>
+                  <p>{this.state.community && this.state.community.creator}</p>
                   {this.state.community &&
                     this.state.community.members.map((member, id) => {
                       return (
@@ -211,7 +212,7 @@ class Community extends Component {
                   </p>
                 ))}
               {this.state.community &&
-                (this.state.community.members.length >= 3 &&
+                (this.state.community.numberOfMembers >= 3 &&
                   member.length === 1 && (
                     <p>
                       <Link
