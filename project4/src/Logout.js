@@ -4,7 +4,7 @@ class Logout extends Component {
   render() {
     return (
       this.props.isLoggedIn === true && (
-        <div className="card m-5">
+        <div className="card m-2">
           <div className="card-body">
             <form>
               <button

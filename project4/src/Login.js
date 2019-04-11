@@ -4,7 +4,7 @@ class Login extends Component {
   render() {
     return (
       this.props.isLoggedIn === false && (
-        <div className="card m-5">
+        <div className="card m-2">
           <div className="card-body">
             <h2>Log In</h2>
 

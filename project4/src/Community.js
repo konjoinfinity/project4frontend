@@ -150,7 +150,7 @@ class Community extends Component {
     return (
       this.props.isLoggedIn === true && (
         <div className="container">
-          <div className="community card m-5">
+          <div className="community card m-2">
             <div className="card-body">
               <h1>{this.state.community && this.state.community.name}</h1>
               <h2>
@@ -161,7 +161,7 @@ class Community extends Component {
                 Category:{" "}
                 {this.state.community && this.state.community.category}
               </p>
-              <div className="member card m-5">
+              <div className="member card m-2">
                 <div className="card-body">
                   <h5>
                     Members:{" "}
@@ -231,9 +231,13 @@ class Community extends Component {
             </div>
           </div>
           {this.state.community &&
+            (this.state.community.numberOfMembers >= 3 &&
+              member.length === 1 && <h2>Meets</h2>)}
+
+          {this.state.community &&
             this.state.community.meets.map((meet, id) => {
               return (
-                <div className="meet card m-5" key={id}>
+                <div className="meet card m-2" key={id}>
                   <div className="card-body">
                     <h2>{meet.name}</h2>
                     <h4>{meet.description}</h4>
@@ -248,9 +252,10 @@ class Community extends Component {
                 </div>
               );
             })}
+
           {this.state.community &&
             (username === this.state.community.creator && (
-              <div className="community card m-5">
+              <div className="community card m-2">
                 <div className="card-body">
                   <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
@@ -276,7 +281,7 @@ class Community extends Component {
               return (
                 this.state.community &&
                 (username === this.state.community.creator && (
-                  <div className="community card m-5" key={id}>
+                  <div className="community card m-2" key={id}>
                     <div className="card-body">
                       <p>{comment.text}</p>
                       <form data-id={comment._id} onSubmit={this.deleteComment}>
@@ -291,7 +296,7 @@ class Community extends Component {
             })}
           {this.state.community &&
             (member.length === 1 && (
-              <div className="community card m-5">
+              <div className="community card m-2">
                 <div className="card-body">
                   <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
@@ -317,7 +322,7 @@ class Community extends Component {
               return (
                 this.state.community &&
                 (member.length === 1 && (
-                  <div className="community card m-5" key={id}>
+                  <div className="community card m-2" key={id}>
                     <div className="card-body">
                       <p>{comment.text}</p>
                       <form data-id={comment._id} onSubmit={this.deleteComment}>

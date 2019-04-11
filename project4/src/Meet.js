@@ -43,7 +43,7 @@ class Meet extends Component {
   render() {
     return (
       this.props.isLoggedIn === true && (
-        <div className="card m-5">
+        <div className="card m-2">
           <div className="card-body">
             <h1>New Meet</h1>
             <form onSubmit={this.handleSubmit} action="/community/:id/meet">
