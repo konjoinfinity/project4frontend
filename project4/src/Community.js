@@ -149,7 +149,7 @@ class Community extends Component {
       this.state.community.members.filter(member => member.name === username);
     return (
       this.props.isLoggedIn === true && (
-        <div className="conatiner">
+        <div className="container">
           <div className="community card m-5">
             <div className="card-body">
               <h1>{this.state.community && this.state.community.name}</h1>
