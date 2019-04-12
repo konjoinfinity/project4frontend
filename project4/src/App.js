@@ -12,6 +12,7 @@ import New from "./New";
 import Community from "./Community";
 import Edit from "./Edit";
 import Meet from "./Meet";
+import MyCommunities from "./MyCommunities";
 
 class App extends Component {
   constructor(props) {
@@ -144,6 +145,17 @@ class App extends Component {
                 data-target=".navbar-collapse.show"
               >
                 {this.state.isLoggedIn === true && (
+                  <Link to="/mycommunities">
+                    <h4>My Communities</h4>
+                  </Link>
+                )}
+              </li>
+              <li
+                className="nav-item"
+                data-toggle="collapse"
+                data-target=".navbar-collapse.show"
+              >
+                {this.state.isLoggedIn === true && (
                   <Link to="/new">
                     <h4>New</h4>
                   </Link>
@@ -209,6 +221,18 @@ class App extends Component {
                   isLoggedIn={this.state.isLoggedIn}
                 />
               )}
+            />
+            <Route
+              path="/mycommunities"
+              exact
+              render={props => {
+                return (
+                  <MyCommunities
+                    {...props}
+                    isLoggedIn={this.state.isLoggedIn}
+                  />
+                );
+              }}
             />
             <Route
               path="/community/:id"
