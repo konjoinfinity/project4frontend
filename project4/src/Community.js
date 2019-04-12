@@ -233,6 +233,9 @@ class Community extends Component {
           {this.state.community &&
             (this.state.community.numberOfMembers >= 3 &&
               member.length === 1 && <h2>Meets</h2>)}
+          {this.state.community &&
+            (this.state.community.numberOfMembers >= 3 &&
+              username === this.state.community.creator && <h2>Meets</h2>)}
 
           {this.state.community &&
             this.state.community.meets.map((meet, id) => {
