@@ -2,6 +2,10 @@
 
 Welcome to Konjo Communities where you can create, join, meet, grow, and comment about communities. This is the react web version of the project built using react.
 
+<img width="1248" alt="Screen Shot 2019-04-12 at 12 10 35 PM" src="https://user-images.githubusercontent.com/46323883/56051829-da55c680-5d1d-11e9-9607-37586f631b9c.png">
+
+<img width="351" alt="Screen Shot 2019-04-12 at 12 11 14 PM" src="https://user-images.githubusercontent.com/46323883/56051834-df1a7a80-5d1d-11e9-84c0-63d0b40cf119.png">
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
