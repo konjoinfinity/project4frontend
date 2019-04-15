@@ -14,6 +14,7 @@ import Edit from "./Edit";
 import Meet from "./Meet";
 import MyCommunities from "./MyCommunities";
 import JoinedCommunities from "./JoinedCommunities";
+import Search from "./Search";
 
 class App extends Component {
   constructor(props) {
@@ -136,7 +137,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === true && (
                   <Link to="/">
-                    <h4>Home</h4>
+                    <h5>Home</h5>
                   </Link>
                 )}
               </li>
@@ -147,7 +148,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === true && (
                   <Link to="/mycommunities">
-                    <h4>My Communities</h4>
+                    <h5>My Communities</h5>
                   </Link>
                 )}
               </li>
@@ -158,7 +159,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === true && (
                   <Link to="/joinedcommunities">
-                    <h4>Joined Communities</h4>
+                    <h5>Joined Communities</h5>
                   </Link>
                 )}
               </li>
@@ -169,7 +170,18 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === true && (
                   <Link to="/new">
-                    <h4>New</h4>
+                    <h5>New</h5>
+                  </Link>
+                )}
+              </li>
+              <li
+                className="nav-item"
+                data-toggle="collapse"
+                data-target=".navbar-collapse.show"
+              >
+                {this.state.isLoggedIn === true && (
+                  <Link to="/search">
+                    <h5>Search</h5>
                   </Link>
                 )}
               </li>
@@ -180,7 +192,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === false && (
                   <Link to="/login">
-                    <h4>Login</h4>
+                    <h5>Login</h5>
                   </Link>
                 )}
               </li>
@@ -191,7 +203,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === false && (
                   <Link to="/signup">
-                    <h4>Sign Up</h4>
+                    <h5>Sign Up</h5>
                   </Link>
                 )}
               </li>
@@ -202,7 +214,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === true && (
                   <Link to="/logout">
-                    <h4>Logout</h4>
+                    <h5>Logout</h5>
                   </Link>
                 )}
               </li>
@@ -256,6 +268,13 @@ class App extends Component {
                     isLoggedIn={this.state.isLoggedIn}
                   />
                 );
+              }}
+            />
+            <Route
+              path="/search"
+              exact
+              render={props => {
+                return <Search {...props} isLoggedIn={this.state.isLoggedIn} />;
               }}
             />
             <Route
