@@ -23,8 +23,8 @@ class Communities extends Component {
     this.state.communities && console.log(username);
     let joinedcommunities;
     this.state.communities &&
-      (joinedcommunities = this.state.communities.filter(
-        member => member.members.name === username
+      (joinedcommunities = this.state.communities.filter(community =>
+        community.members.some(member => member.name === username)
       ));
     return (
       this.props.isLoggedIn === true && (
