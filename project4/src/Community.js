@@ -244,8 +244,9 @@ class Community extends Component {
                   <div className="card-body">
                     <h2>{meet.name}</h2>
                     <h4>{meet.description}</h4>
-                    <p>{meet.date}</p>
-                    <p>{meet.time}</p>
+                    <p>Location: {meet.location}</p>
+                    <p>Date: {meet.date}</p>
+                    <p>Time: {meet.time}</p>
                     <form data-id={meet._id} onSubmit={this.deleteMeet}>
                       <p>
                         <button className="btn btn-warning">Delete</button>
