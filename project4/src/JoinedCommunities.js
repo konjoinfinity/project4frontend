@@ -11,7 +11,7 @@ class Communities extends Component {
   }
 
   componentDidMount() {
-    fetch(backendUrl + "community/joinedcommunities")
+    fetch(backendUrl + "community")
       .then(res => res.json())
       .then(res => {
         this.setState({ communities: res });
