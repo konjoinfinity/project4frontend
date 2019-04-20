@@ -2,12 +2,17 @@ import React, { Component } from "react";
 
 class Signup extends Component {
   render() {
+    let errormessage;
+    this.props.error &&
+      (errormessage = (
+        <button className="btn btn-warning"> {this.props.error}</button>
+      ));
     return (
       this.props.isLoggedIn === false && (
         <div className="card m-2">
           <div className="card-body">
             <h2>Sign Up</h2>
-
+            {errormessage}
             <form>
               <div className="form-group">
                 <label>Email</label>

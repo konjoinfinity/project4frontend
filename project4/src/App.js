@@ -23,7 +23,8 @@ class App extends Component {
       communities: "",
       email: "",
       password: "",
-      isLoggedIn: false
+      isLoggedIn: false,
+      error: ""
     };
     this.getCommunities = this.getCommunities.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
@@ -83,6 +84,7 @@ class App extends Component {
       .then(response => {
         if (response.data.error) {
           console.log(response.data.error);
+          this.setState({ error: response.data.error });
         } else {
           localStorage.token = response.data.token;
           this.setState({ isLoggedIn: true });
@@ -104,6 +106,7 @@ class App extends Component {
       .then(response => {
         if (response.data.error) {
           console.log(response.data.error);
+          this.setState({ error: response.data.error });
         } else {
           localStorage.token = response.data.token;
           this.setState({ isLoggedIn: true });
@@ -328,6 +331,7 @@ class App extends Component {
                     isLoggedIn={this.state.isLoggedIn}
                     handleInput={this.handleInput}
                     handleSignUp={this.handleSignUp}
+                    error={this.state.error}
                   />
                 );
               }}
@@ -353,6 +357,7 @@ class App extends Component {
                     isLoggedIn={this.state.isLoggedIn}
                     handleInput={this.handleInput}
                     handleLogIn={this.handleLogIn}
+                    error={this.state.error}
                   />
                 );
               }}
