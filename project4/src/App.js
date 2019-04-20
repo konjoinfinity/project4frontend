@@ -75,34 +75,42 @@ class App extends Component {
 
   handleSignUp(e) {
     e.preventDefault();
-    localStorage.setItem("username", this.state.email);
     axios
       .post(backendUrl + "users/signup", {
         email: this.state.email,
         password: this.state.password
       })
       .then(response => {
-        localStorage.token = response.data.token;
-        this.setState({ isLoggedIn: true });
-        console.log("User has signed up");
-        this.props.history.push("/");
+        if (response.data.error) {
+          console.log(response.data.error);
+        } else {
+          localStorage.token = response.data.token;
+          this.setState({ isLoggedIn: true });
+          console.log("User has signed up");
+          localStorage.setItem("username", this.state.email);
+          this.props.history.push("/");
+        }
       })
       .catch(err => console.log(err));
   }
 
   handleLogIn(e) {
     e.preventDefault();
-    localStorage.setItem("username", this.state.email);
     axios
       .post(backendUrl + "users/login", {
         email: this.state.email,
         password: this.state.password
       })
       .then(response => {
-        localStorage.token = response.data.token;
-        this.setState({ isLoggedIn: true });
-        console.log("User is logged in");
-        this.props.history.push("/");
+        if (response.data.error) {
+          console.log(response.data.error);
+        } else {
+          localStorage.token = response.data.token;
+          this.setState({ isLoggedIn: true });
+          console.log("User is logged in");
+          localStorage.setItem("username", this.state.email);
+          this.props.history.push("/");
+        }
       })
       .catch(err => console.log(err));
   }
