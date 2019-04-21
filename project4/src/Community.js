@@ -115,9 +115,11 @@ class Community extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    var username = localStorage.getItem("username");
     axios
       .put(backendUrl + `community/${this.props.match.params.id}/comment`, {
-        comment: this.state.comment
+        comment: this.state.comment,
+        creator: username
       })
       .then(response => console.log(response))
       .then(result => {
@@ -240,20 +242,46 @@ class Community extends Component {
           {this.state.community &&
             this.state.community.meets.map((meet, id) => {
               return (
-                <div className="meet card m-2" key={id}>
-                  <div className="card-body">
-                    <h2>{meet.name}</h2>
-                    <h4>{meet.description}</h4>
-                    <p>Location: {meet.location}</p>
-                    <p>Date: {meet.date}</p>
-                    <p>Time: {meet.time}</p>
-                    <form data-id={meet._id} onSubmit={this.deleteMeet}>
-                      <p>
-                        <button className="btn btn-warning">Delete</button>
-                      </p>
-                    </form>
+                this.state.community.numberOfMembers >= 3 &&
+                member.length === 1 && (
+                  <div className="meet card m-2" key={id}>
+                    <div className="card-body">
+                      <h2>{meet.name}</h2>
+                      <h4>{meet.description}</h4>
+                      <p>Location: {meet.location}</p>
+                      <p>Date: {meet.date}</p>
+                      <p>Time: {meet.time}</p>
+                      <form data-id={meet._id} onSubmit={this.deleteMeet}>
+                        <p>
+                          <button className="btn btn-warning">Delete</button>
+                        </p>
+                      </form>
+                    </div>
                   </div>
-                </div>
+                )
+              );
+            })}
+
+          {this.state.community &&
+            this.state.community.meets.map((meet, id) => {
+              return (
+                this.state.community.numberOfMembers >= 3 &&
+                username === this.state.community.creator && (
+                  <div className="meet card m-2" key={id}>
+                    <div className="card-body">
+                      <h2>{meet.name}</h2>
+                      <h4>{meet.description}</h4>
+                      <p>Location: {meet.location}</p>
+                      <p>Date: {meet.date}</p>
+                      <p>Time: {meet.time}</p>
+                      <form data-id={meet._id} onSubmit={this.deleteMeet}>
+                        <p>
+                          <button className="btn btn-warning">Delete</button>
+                        </p>
+                      </form>
+                    </div>
+                  </div>
+                )
               );
             })}
 
@@ -288,11 +316,16 @@ class Community extends Component {
                   <div className="community card m-2" key={id}>
                     <div className="card-body">
                       <p>{comment.text}</p>
-                      <form data-id={comment._id} onSubmit={this.deleteComment}>
-                        <p>
-                          <button className="btn btn-warning">Delete</button>
-                        </p>
-                      </form>
+                      {username === comment.creator && (
+                        <form
+                          data-id={comment._id}
+                          onSubmit={this.deleteComment}
+                        >
+                          <p>
+                            <button className="btn btn-warning">Delete</button>
+                          </p>
+                        </form>
+                      )}
                     </div>
                   </div>
                 ))
@@ -329,11 +362,16 @@ class Community extends Component {
                   <div className="community card m-2" key={id}>
                     <div className="card-body">
                       <p>{comment.text}</p>
-                      <form data-id={comment._id} onSubmit={this.deleteComment}>
-                        <p>
-                          <button className="btn btn-warning">Delete</button>
-                        </p>
-                      </form>
+                      {username === comment.creator && (
+                        <form
+                          data-id={comment._id}
+                          onSubmit={this.deleteComment}
+                        >
+                          <p>
+                            <button className="btn btn-warning">Delete</button>
+                          </p>
+                        </form>
+                      )}
                     </div>
                   </div>
                 ))

@@ -10,10 +10,16 @@ class Meet extends Component {
       description: "",
       location: "",
       date: "",
-      time: ""
+      time: "",
+      creator: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  componentDidMount() {
+    var username = localStorage.getItem("username");
+    this.setState({ creator: username });
   }
 
   handleInputChange(event) {
