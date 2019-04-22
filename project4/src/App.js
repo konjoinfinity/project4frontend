@@ -148,7 +148,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === true && (
                   <Link to="/">
-                    <h5>Home</h5>
+                    <h6>Home <span role="img" aria-label="key">🏠</span></h6>
                   </Link>
                 )}
               </li>
@@ -159,7 +159,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === true && (
                   <Link to="/mycommunities">
-                    <h5>My Communities</h5>
+                    <h6>My Communities <span role="img" aria-label="key">👤</span></h6>
                   </Link>
                 )}
               </li>
@@ -170,7 +170,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === true && (
                   <Link to="/joinedcommunities">
-                    <h5>Joined Communities</h5>
+                    <h6>Joined Communities <span role="img" aria-label="key">👤➡️👥</span></h6>
                   </Link>
                 )}
               </li>
@@ -181,7 +181,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === true && (
                   <Link to="/new">
-                    <h5>New</h5>
+                    <h6>New <span role="img" aria-label="key">➕</span></h6>
                   </Link>
                 )}
               </li>
@@ -192,7 +192,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === true && (
                   <Link to="/search">
-                    <h5>Search</h5>
+                    <h6>Search <span role="img" aria-label="key">🔍</span></h6>
                   </Link>
                 )}
               </li>
@@ -203,7 +203,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === false && (
                   <Link to="/login">
-                    <h5>Login</h5>
+                    <h6>Login <span role="img" aria-label="key">🔑</span></h6>
                   </Link>
                 )}
               </li>
@@ -214,7 +214,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === false && (
                   <Link to="/signup">
-                    <h5>Sign Up</h5>
+                    <h6>Sign Up <span role="img" aria-label="key">⌨️</span></h6>
                   </Link>
                 )}
               </li>
@@ -225,7 +225,7 @@ class App extends Component {
               >
                 {this.state.isLoggedIn === true && (
                   <Link to="/logout">
-                    <h5>Logout</h5>
+                    <h6>Logout <span role="img" aria-label="key">➡🚪</span></h6>
                   </Link>
                 )}
               </li>
