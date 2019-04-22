@@ -316,7 +316,8 @@ class Community extends Component {
                 (username === this.state.community.creator && (
                   <div className="community card m-2" key={id}>
                     <div className="card-body">
-                      <p>{comment.text}</p>
+                      <h6>{comment.text}</h6>
+                      <p>{comment.creator}</p>
                       {username === comment.creator && (
                         <form
                           data-id={comment._id}
@@ -362,7 +363,8 @@ class Community extends Component {
                 (member.length === 1 && (
                   <div className="community card m-2" key={id}>
                     <div className="card-body">
-                      <p>{comment.text}</p>
+                      <h6>{comment.text}</h6>
+                      <p>{comment.creator}</p>
                       {username === comment.creator && (
                         <form
                           data-id={comment._id}
