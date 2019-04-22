@@ -127,6 +127,7 @@ class Community extends Component {
         this.getCommunity();
       });
     this.props.history.push(`/community/${this.state.community._id}/`);
+    event.target.reset();
   }
 
   deleteMeet(event) {
