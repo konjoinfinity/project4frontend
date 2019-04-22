@@ -33,7 +33,7 @@ class Search extends Component {
 
     if (search.length > 0) {
       this.state.communities &&
-        (communitySearch = communitySearch.filter(function(community) {
+        (communitySearch = communitySearch.filter(function (community) {
           return community.name.toLowerCase().match(search);
         }));
     }
@@ -54,6 +54,21 @@ class Search extends Component {
         );
       }));
 
+    let newsearch;
+    newsearch =
+      this.state.search !== "" &&
+      (results.length === 0 && (
+        <div>
+          <div className="failedsearch">
+            Create a New Community
+          </div>
+          <div className="newbutton">
+            <Link to={"/new"}>
+              <button className="btn btn-success">{this.state.search} <span role="img" aria-label="add">➕</span></button>
+            </Link>
+          </div>
+        </div>
+      ));
     return (
       this.props.isLoggedIn === true && (
         <div>
@@ -72,7 +87,9 @@ class Search extends Component {
           </div>
           {this.state.search !== "" && (
             <div className="card mt-3">
-              <div className="card-body">{results}</div>
+              <div className="card-body">{results}
+                {newsearch}
+              </div>
             </div>
           )}
         </div>
