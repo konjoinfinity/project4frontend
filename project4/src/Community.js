@@ -252,6 +252,7 @@ class Community extends Component {
                       <p>Location: {meet.location}</p>
                       <p>Date: {meet.date}</p>
                       <p>Time: {meet.time}</p>
+                      <p>Creator: {meet.creator}</p>
                       <form data-id={meet._id} onSubmit={this.deleteMeet}>
                         <p>
                           <button className="btn btn-warning">Delete</button>
