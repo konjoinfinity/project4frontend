@@ -253,11 +253,12 @@ class Community extends Component {
                       <p>Date: {meet.date}</p>
                       <p>Time: {meet.time}</p>
                       <p>Creator: {meet.creator}</p>
-                      <form data-id={meet._id} onSubmit={this.deleteMeet}>
-                        <p>
-                          <button className="btn btn-warning">Delete</button>
-                        </p>
-                      </form>
+                      {username === meet.creator &&
+                        <form data-id={meet._id} onSubmit={this.deleteMeet}>
+                          <p>
+                            <button className="btn btn-warning">Delete</button>
+                          </p>
+                        </form>}
                     </div>
                   </div>
                 )
@@ -276,11 +277,13 @@ class Community extends Component {
                       <p>Location: {meet.location}</p>
                       <p>Date: {meet.date}</p>
                       <p>Time: {meet.time}</p>
-                      <form data-id={meet._id} onSubmit={this.deleteMeet}>
-                        <p>
-                          <button className="btn btn-warning">Delete</button>
-                        </p>
-                      </form>
+                      <p>Creator: {meet.creator}</p>
+                      {username === meet.creator &&
+                        <form data-id={meet._id} onSubmit={this.deleteMeet}>
+                          <p>
+                            <button className="btn btn-warning">Delete</button>
+                          </p>
+                        </form>}
                     </div>
                   </div>
                 )
