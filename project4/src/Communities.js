@@ -25,6 +25,7 @@ class Communities extends Component {
         })
     } else {
       console.log("Please Login")
+      this.props.history.push("/login");
     }
   }
 
@@ -42,6 +43,7 @@ class Communities extends Component {
         })
     } else {
       console.log("Please Login")
+      this.props.history.push("/login");
     }
   }
 
