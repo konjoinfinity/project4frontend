@@ -33,17 +33,26 @@ class Meet extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
-    console.log(event);
-    axios
-      .put(backendUrl + `community/${this.props.match.params.id}/meet`, {
-        meet: this.state
-      })
-      .then(result => {
-        this.props.history.push(`/community/${this.props.match.params.id}`);
-        console.log(result);
-        this.props.getCommunities();
-      });
+    if (localStorage.token) {
+      event.preventDefault();
+      console.log(event);
+      axios
+        .put(backendUrl + `community/${this.props.match.params.id}/meet`, {
+          meet: this.state
+        }, {
+            headers: {
+              "user-token": `${localStorage.token}`
+            }
+          })
+        .then(result => {
+          this.props.history.push(`/community/${this.props.match.params.id}`);
+          console.log(result);
+          this.props.getCommunities();
+        });
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   render() {

@@ -290,6 +290,16 @@ class Community extends Component {
                   ))}
               {this.state.community &&
                 (username === this.state.community.creator && (
+                  <p>
+                    <Link
+                      to={`/community/${this.props.match.params.id}/meet`}
+                    >
+                      <button className="btn btn-success">New Meet</button>
+                    </Link>
+                  </p>
+                ))}
+              {this.state.community &&
+                (username === this.state.community.creator && (
                   <form onSubmit={this.deleteCommunity}>
                     <button className="btn btn-danger">Delete</button>
                   </form>
