@@ -52,14 +52,18 @@ class Search extends Component {
     this.state.communities &&
       (results = communitySearch.map((community, id) => {
         return (
-          <div className="community" key={id}>
-            <Link to={"/community/" + community._id}>
-              <button className="btn btn-success">{community.name}</button>
-            </Link>
-            <p>Description: {community.description}</p>
-            <p>Category: {community.category}</p>
-            <p>Members: {community.numberOfMembers}</p>
-            <p>Creator: {community.creator}</p>
+          <div className="card mt-3">
+            <div className="card-body">
+              <div className="community" key={id}>
+                <Link to={"/community/" + community._id}>
+                  <button className="btn btn-success">{community.name}</button>
+                </Link>
+                <p>Description: {community.description}</p>
+                <p>Category: {community.category}</p>
+                <p>Members: {community.numberOfMembers}</p>
+                <p>Creator: {community.creator}</p>
+              </div>
+            </div>
           </div>
         );
       }));
