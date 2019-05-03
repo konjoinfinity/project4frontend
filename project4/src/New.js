@@ -33,23 +33,29 @@ class New extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
-    console.log(this.state.creator);
-    const data = this.state;
-    console.log(event);
-    fetch(backendUrl + "community", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-      .then(response => response.json())
-      .then(result => {
-        this.props.history.push("/");
-        console.log(result);
+    if (localStorage.token) {
+      event.preventDefault();
+      console.log(this.state.creator);
+      const data = this.state;
+      console.log(event);
+      fetch(backendUrl + "community", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          "user-token": `${localStorage.token}`
+        },
+        body: JSON.stringify(data)
       })
-      .finally(() => this.props.getCommunities());
+        .then(response => response.json())
+        .then(result => {
+          this.props.history.push("/");
+          console.log(result);
+        })
+        .finally(() => this.props.getCommunities());
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   render() {

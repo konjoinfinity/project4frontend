@@ -38,7 +38,7 @@ class App extends Component {
       fetch(backendUrl + "community", {
         method: "GET",
         headers: {
-          "x-access-token": `${localStorage.token}`
+          "user-token": `${localStorage.token}`
         }
       })
         .then(res => res.json())

@@ -22,19 +22,39 @@ class Community extends Component {
   }
 
   componentDidMount() {
-    fetch(backendUrl + `community/${this.props.match.params.id}`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ community: res });
-      });
+    if (localStorage.token) {
+      fetch(backendUrl + `community/${this.props.match.params.id}`, {
+        method: "GET",
+        headers: {
+          "user-token": `${localStorage.token}`
+        }
+      })
+        .then(res => res.json())
+        .then(res => {
+          this.setState({ community: res });
+        })
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   getCommunity() {
-    fetch(backendUrl + `community/${this.props.match.params.id}`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ community: res });
-      });
+    if (localStorage.token) {
+      fetch(backendUrl + `community/${this.props.match.params.id}`, {
+        method: "GET",
+        headers: {
+          "user-token": `${localStorage.token}`
+        }
+      })
+        .then(res => res.json())
+        .then(res => {
+          this.setState({ community: res });
+        })
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   deleteCommunity(event) {
