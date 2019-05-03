@@ -13,11 +13,21 @@ class Search extends Component {
   }
 
   componentDidMount() {
-    fetch(backendUrl + "community")
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ communities: res });
-      });
+    if (localStorage.token) {
+      fetch(backendUrl + "community", {
+        method: "GET",
+        headers: {
+          "user-token": `${localStorage.token}`
+        }
+      })
+        .then(res => res.json())
+        .then(res => {
+          this.setState({ communities: res });
+        })
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   handleChange(event) {
@@ -64,7 +74,8 @@ class Search extends Component {
           </div>
           <div className="newbutton">
             <Link to={"/new"}>
-              <button className="btn btn-success">{this.state.search} <span role="img" aria-label="add">➕</span></button>
+              <button className="btn btn-success">{this.state.search} <span role="img" aria-label="add">➕</span>
+              </button>
             </Link>
           </div>
         </div>
