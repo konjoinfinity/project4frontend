@@ -15,6 +15,7 @@ import Meet from "./Meet";
 import MyCommunities from "./MyCommunities";
 import JoinedCommunities from "./JoinedCommunities";
 import Search from "./Search";
+import logo from "./logo.png"
 
 class App extends Component {
   constructor(props) {
@@ -134,7 +135,7 @@ class App extends Component {
         <nav className="navbar navbar-expand-lg navbar-light bg-primary">
           <a className="navbar-brand" href="/">
             <img
-              src="https://konjoinfinity.github.io/img/logo.png"
+              src={logo}
               alt="Konjo"
             />
           </a>
