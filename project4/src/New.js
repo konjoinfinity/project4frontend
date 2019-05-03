@@ -15,11 +15,16 @@ class New extends Component {
   }
 
   componentDidMount() {
-    var username = localStorage.getItem("username");
-    console.log(username);
-    this.setState({
-      creator: username
-    });
+    if (localStorage.token) {
+      var username = localStorage.getItem("username");
+      console.log(username);
+      this.setState({
+        creator: username
+      });
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   handleInputChange(event) {

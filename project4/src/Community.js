@@ -14,7 +14,6 @@ class Community extends Component {
     this.deleteMeet = this.deleteMeet.bind(this);
     this.deleteCommunity = this.deleteCommunity.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleComment = this.handleComment.bind(this);
     this.getCommunity = this.getCommunity.bind(this);
     this.joinCommunity = this.joinCommunity.bind(this);
@@ -58,39 +57,47 @@ class Community extends Component {
   }
 
   deleteCommunity(event) {
-    event.preventDefault();
-    fetch(backendUrl + `community/${this.state.community._id}`, {
-      method: "DELETE"
-    })
-      .then(response => response.json())
-      .then(result => {
-        this.props.history.push("/");
-        console.log(result);
+    if (localStorage.token) {
+      event.preventDefault();
+      fetch(backendUrl + `community/${this.state.community._id}`, {
+        method: "DELETE",
+        headers: {
+          "user-token": `${localStorage.token}`
+        }
       })
-      .finally(() => this.props.getCommunities());
-  }
-
-  handleComment() {
-    fetch(backendUrl + `community/${this.props.match.params.id}`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ community: res });
-      });
-    this.props.history.push(`/community/${this.props.match.params.id}/`);
+        .then(response => response.json())
+        .then(result => {
+          this.props.history.push("/");
+          console.log(result);
+        })
+        .finally(() => this.props.getCommunities());
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   deleteComment(event) {
-    event.preventDefault();
-    axios
-      .put(backendUrl + `community/${this.state.community._id}/delete`, {
-        body: event.target.dataset.id
-      })
-      .then(response => console.log(response))
-      .then(result => {
-        console.log(result);
-        this.getCommunity();
-      });
-    this.props.history.push(`/community/${this.props.match.params.id}/`);
+    if (localStorage.token) {
+      event.preventDefault();
+      axios
+        .put(backendUrl + `community/${this.state.community._id}/delete`, {
+          body: event.target.dataset.id
+        }, {
+            headers: {
+              "user-token": `${localStorage.token}`
+            }
+          })
+        .then(response => console.log(response))
+        .then(result => {
+          console.log(result);
+          this.getCommunity();
+        });
+      this.props.history.push(`/community/${this.props.match.params.id}/`);
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   handleInputChange(event) {
@@ -104,64 +111,100 @@ class Community extends Component {
   }
 
   joinCommunity(event) {
-    event.preventDefault();
-    var username = localStorage.getItem("username");
-    console.log(`Username is: ${username}`);
-    axios
-      .put(backendUrl + `community/${this.props.match.params.id}/adduser`, {
-        member: username
-      })
-      .then(response => console.log(response))
-      .then(result => {
-        console.log(result);
-        this.getCommunity();
-      });
-    this.props.history.push(`/community/${this.state.community._id}/`);
+    if (localStorage.token) {
+      event.preventDefault();
+      var username = localStorage.getItem("username");
+      console.log(`Username is: ${username}`);
+      axios
+        .put(backendUrl + `community/${this.props.match.params.id}/adduser`, {
+          member: username
+        }, {
+            headers: {
+              "user-token": `${localStorage.token}`
+            }
+          })
+        .then(response => console.log(response))
+        .then(result => {
+          console.log(result);
+          this.getCommunity();
+        });
+      this.props.history.push(`/community/${this.state.community._id}/`);
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   deleteMember(event) {
-    event.preventDefault();
-    axios
-      .put(backendUrl + `community/${this.state.community._id}/removeuser`, {
-        body: event.target.dataset.id
-      })
-      .then(response => console.log(response))
-      .then(result => {
-        console.log(result);
-        this.getCommunity();
-      });
-    this.props.history.push(`/community/${this.props.match.params.id}/`);
+    if (localStorage.token) {
+      event.preventDefault();
+      axios
+        .put(backendUrl + `community/${this.state.community._id}/removeuser`, {
+          body: event.target.dataset.id
+        }, {
+            headers: {
+              "user-token": `${localStorage.token}`
+            }
+          })
+        .then(response => console.log(response))
+        .then(result => {
+          console.log(result);
+          this.getCommunity();
+        });
+      this.props.history.push(`/community/${this.props.match.params.id}/`);
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    var username = localStorage.getItem("username");
-    axios
-      .put(backendUrl + `community/${this.props.match.params.id}/comment`, {
-        comment: this.state.comment,
-        creator: username
-      })
-      .then(response => console.log(response))
-      .then(result => {
-        console.log(result);
-        this.getCommunity();
-      });
-    this.props.history.push(`/community/${this.state.community._id}/`);
-    event.target.reset();
+  handleComment(event) {
+    if (localStorage.token) {
+      event.preventDefault();
+      var username = localStorage.getItem("username");
+      axios
+        .put(backendUrl + `community/${this.props.match.params.id}/comment`, {
+          comment: this.state.comment,
+          creator: username
+        }, {
+            headers: {
+              "user-token": `${localStorage.token}`
+            }
+          })
+        .then(response => console.log(response))
+        .then(result => {
+          console.log(result);
+          this.getCommunity();
+        });
+      this.props.history.push(`/community/${this.state.community._id}/`);
+      event.target.reset();
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   deleteMeet(event) {
-    event.preventDefault();
-    axios
-      .put(backendUrl + `community/${this.state.community._id}/meet/delete`, {
-        body: event.target.dataset.id
-      })
-      .then(response => console.log(response))
-      .then(result => {
-        console.log(result);
-        this.getCommunity();
-      });
-    this.props.history.push(`/community/${this.props.match.params.id}/`);
+    if (localStorage.token) {
+      event.preventDefault();
+      axios
+        .put(backendUrl + `community/${this.state.community._id}/meet/delete`, {
+          body: event.target.dataset.id
+        }, {
+            headers: {
+              "user-token": `${localStorage.token}`
+            }
+          })
+        .then(response => console.log(response))
+        .then(result => {
+          console.log(result);
+          this.getCommunity();
+        });
+      this.props.history.push(`/community/${this.props.match.params.id}/`);
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   render() {
@@ -314,7 +357,7 @@ class Community extends Component {
             (username === this.state.community.creator && (
               <div className="community card m-2">
                 <div className="card-body">
-                  <form onSubmit={this.handleSubmit}>
+                  <form onSubmit={this.handleComment}>
                     <div className="form-group">
                       <p>
                         <input
@@ -361,7 +404,7 @@ class Community extends Component {
             (member.length === 1 && (
               <div className="community card m-2">
                 <div className="card-body">
-                  <form onSubmit={this.handleSubmit}>
+                  <form onSubmit={this.handleComment}>
                     <div className="form-group">
                       <p>
                         <input
