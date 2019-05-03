@@ -39,8 +39,6 @@ class Search extends Component {
     this.state.communities && (communitySearch = this.state.communities);
     let search = this.state.search.trim().toLowerCase();
 
-    this.state.communities && console.log(search);
-
     if (search.length > 0) {
       this.state.communities &&
         (communitySearch = communitySearch.filter(function (community) {
@@ -52,9 +50,9 @@ class Search extends Component {
     this.state.communities &&
       (results = communitySearch.map((community, id) => {
         return (
-          <div className="card mt-3">
+          <div className="card mt-3" key={id}>
             <div className="card-body">
-              <div className="community" key={id}>
+              <div className="community">
                 <Link to={"/community/" + community._id}>
                   <button className="btn btn-success">{community.name}</button>
                 </Link>
