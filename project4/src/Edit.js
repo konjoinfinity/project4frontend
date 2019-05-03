@@ -14,11 +14,21 @@ class Edit extends Component {
   }
 
   componentDidMount() {
-    fetch(backendUrl + `community/${this.props.match.params.id}`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ community: res });
-      });
+    if (localStorage.token) {
+      fetch(backendUrl + `community/${this.props.match.params.id}`, {
+        method: "GET",
+        headers: {
+          "user-token": `${localStorage.token}`
+        }
+      })
+        .then(res => res.json())
+        .then(res => {
+          this.setState({ community: res });
+        })
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   handleInputChange(event) {
@@ -32,21 +42,27 @@ class Edit extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
-    const data = this.state;
-    fetch(backendUrl + `community/${this.props.match.params.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-      .then(response => response.json())
-      .then(result => {
-        this.props.history.push(`/community/${this.props.match.params.id}`);
-        console.log(result);
+    if (localStorage.token) {
+      event.preventDefault();
+      const data = this.state;
+      fetch(backendUrl + `community/${this.props.match.params.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          "user-token": `${localStorage.token}`
+        },
+        body: JSON.stringify(data)
       })
-      .finally(() => this.props.getCommunities());
+        .then(response => response.json())
+        .then(result => {
+          this.props.history.push(`/community/${this.props.match.params.id}`);
+          console.log(result);
+        })
+        .finally(() => this.props.getCommunities());
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   render() {
