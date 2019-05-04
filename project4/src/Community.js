@@ -241,20 +241,34 @@ class Community extends Component {
                   {this.state.community &&
                     this.state.community.members.map((member, id) => {
                       return (
-                        <div key={id}>
-                          <p>{member.name}</p>
-                          {username === this.state.community.creator && (
-                            <form
-                              data-id={member._id}
-                              onSubmit={this.deleteMember}
-                            >
-                              <p>
-                                <button className="btn btn-warning">
-                                  Remove Member
+                        <div className="card m-1" key={id}>
+                          <div className="card-body">
+                            <p>{member.name}</p>
+                            {username === this.state.community.creator && (
+                              <form
+                                data-id={member._id}
+                                onSubmit={this.deleteMember}
+                              >
+                                <p>
+                                  <button className="btn btn-warning">
+                                    Remove Member
                                 </button>
-                              </p>
-                            </form>
-                          )}
+                                </p>
+                              </form>
+                            )}
+                            {username === member.name && (
+                              <form
+                                data-id={member._id}
+                                onSubmit={this.deleteMember}
+                              >
+                                <p>
+                                  <button className="btn btn-warning">
+                                    Remove Member
+                                </button>
+                                </p>
+                              </form>
+                            )}
+                          </div>
                         </div>
                       );
                     })}
