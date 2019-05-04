@@ -13,12 +13,7 @@ class Search extends Component {
   }
 
   componentDidMount() {
-    fetch(backendUrl + "community", {
-      method: "GET",
-      headers: {
-        "user-token": `${localStorage.token}`
-      }
-    })
+    fetch(backendUrl + "community/search")
       .then(res => res.json())
       .then(res => {
         this.setState({ communities: res });
