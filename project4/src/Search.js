@@ -13,21 +13,16 @@ class Search extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.token) {
-      fetch(backendUrl + "community", {
-        method: "GET",
-        headers: {
-          "user-token": `${localStorage.token}`
-        }
+    fetch(backendUrl + "community", {
+      method: "GET",
+      headers: {
+        "user-token": `${localStorage.token}`
+      }
+    })
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ communities: res });
       })
-        .then(res => res.json())
-        .then(res => {
-          this.setState({ communities: res });
-        })
-    } else {
-      console.log("Please Login")
-      this.props.history.push("/login");
-    }
   }
 
   handleChange(event) {
