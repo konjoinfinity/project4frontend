@@ -39,12 +39,13 @@ class Search extends Component {
     this.state.communities && (communitySearch = this.state.communities);
     let search = this.state.search.trim().toLowerCase();
 
-    if (search.length > 0) {
-      this.state.communities &&
+    this.state.communities &&
+      search.length > 0 && (
         (communitySearch = communitySearch.filter(function (community) {
           return community.name.toLowerCase().match(search);
-        }));
-    }
+        }))
+      )
+
 
     let results;
     this.state.communities &&
