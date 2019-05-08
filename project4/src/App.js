@@ -43,7 +43,7 @@ class App extends Component {
           "user-token": `${localStorage.token}`
         }
       })
-        .then(res => res.json())
+        .then(res => console.log(res))
         .then(res => {
           this.setState({ communities: res });
         })
