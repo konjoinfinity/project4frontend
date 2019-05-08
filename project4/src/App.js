@@ -24,6 +24,7 @@ class App extends Component {
       communities: "",
       email: "",
       password: "",
+      confirmpass: "",
       isLoggedIn: false,
       error: ""
     };
@@ -90,7 +91,8 @@ class App extends Component {
     axios
       .post(backendUrl + "users/signup", {
         email: this.state.email,
-        password: this.state.password
+        password: this.state.password,
+        confirmpass: this.state.confirmpass
       })
       .then(response => {
         if (response.data.error) {

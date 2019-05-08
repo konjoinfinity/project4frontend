@@ -25,7 +25,6 @@ class Signup extends Component {
                   />
                 </p>
               </div>
-
               <div className="form-group">
                 <label>Password</label>
                 <p>
@@ -33,6 +32,17 @@ class Signup extends Component {
                     className="form-control"
                     type="password"
                     name="password"
+                    onChange={this.props.handleInput}
+                  />
+                </p>
+              </div>
+              <div className="form-group">
+                <label>Confirm Password</label>
+                <p>
+                  <input
+                    className="form-control"
+                    type="password"
+                    name="confirmpass"
                     onChange={this.props.handleInput}
                   />
                 </p>
