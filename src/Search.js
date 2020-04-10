@@ -13,11 +13,21 @@ class Search extends Component {
   }
 
   componentDidMount() {
-    fetch(backendUrl + "community/search")
-      .then(res => res.json())
-      .then(res => {
-        this.setState({ communities: res });
+    if (localStorage.token) {
+      fetch(backendUrl + "community", {
+        method: "GET",
+        headers: {
+          "user-token": `${localStorage.token}`
+        }
       })
+        .then(res => res.json())
+        .then(res => {
+          this.setState({ communities: res });
+        })
+    } else {
+      console.log("Please Login")
+      this.props.history.push("/login");
+    }
   }
 
   handleChange(event) {
@@ -38,26 +48,24 @@ class Search extends Component {
         }))
       )
 
-
     let results;
-    this.state.communities &&
-      (results = communitySearch.map((community, id) => {
-        return (
-          <div className="card mt-3" key={id}>
-            <div className="card-body">
-              <div className="community">
-                <Link to={"/community/" + community._id}>
-                  <button className="btn btn-success">{community.name}</button>
-                </Link>
-                <p>Description: {community.description}</p>
-                <p>Category: {community.category}</p>
-                <p>Members: {community.numberOfMembers}</p>
-                <p>Creator: {community.creator}</p>
-              </div>
+    this.state.communities && (results = communitySearch.map((community, id) => {
+      return (
+        <div className="card mt-3" key={id}>
+          <div className="card-body">
+            <div className="community">
+              <Link to={"/community/" + community._id}>
+                <button className="btn btn-success">{community.name}</button>
+              </Link>
+              <p>Description: {community.description}</p>
+              <p>Category: {community.category}</p>
+              <p>Members: {community.numberOfMembers}</p>
+              <p>Creator: {community.creator}</p>
             </div>
           </div>
-        );
-      }));
+        </div>
+      );
+    }));
 
     let newsearch;
     newsearch =
