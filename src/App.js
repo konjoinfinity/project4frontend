@@ -86,9 +86,9 @@ class App extends Component {
     });
   }
 
-  handleSignUp(e) {
+  async handleSignUp(e) {
     e.preventDefault();
-    axios
+    await axios
       .post(backendUrl + "users/signup", {
         email: this.state.email,
         password: this.state.password,
@@ -109,9 +109,9 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
-  handleLogIn(e) {
+  async handleLogIn(e) {
     e.preventDefault();
-    axios
+    await axios
       .post(backendUrl + "users/login", {
         email: this.state.email,
         password: this.state.password
